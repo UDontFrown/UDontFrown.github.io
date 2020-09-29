@@ -229,7 +229,7 @@
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
-      分类于:&nbsp;
+      分类于:&nbsp;<a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
     </span>
     
       <span>
@@ -289,8 +289,7 @@
 
   
   <div class="mdui-card-content mdui-typo mdui-p-x-4">
-    <p>categories: 技术</p>
-<p>数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。</p>
+    <p>数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。</p>
 <p>内连接：<br>1、where ……连接    查询雇员姓名和所在部门名称<br>select e.first_name 雇员姓名 , d.department_name 部门名称<br>from employees e , departments d<br>where e.department_id = d.department_id;</p>
 <p>2、join …… on …… 查询出不在部门编号为30的部门的雇员姓名、部门编号和部门名称<br>select e.first_name 雇员姓名 , e.department_id 部门编号 , d.department_name<br>from employees e join departments d<br>on e.department_id != 30;</p>
 <p>3、natural……join…… 获取每个雇员的姓名，属于某个部门的，同时获取其所在部门名称<br>select first_name 姓名 , department_id 部门编号 , department_name 部门名称<br>from employees<br>natural join departments </p>

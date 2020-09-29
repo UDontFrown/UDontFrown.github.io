@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-29T15:21:16.640Z</updated>
+  <updated>2020-09-29T15:26:22.701Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,19 +21,20 @@
     <link href="http://example.com/2020/09/29/%E5%A4%9A%E8%A1%A8%E8%81%94%E6%9F%A5/"/>
     <id>http://example.com/2020/09/29/%E5%A4%9A%E8%A1%A8%E8%81%94%E6%9F%A5/</id>
     <published>2020-09-29T12:19:24.000Z</published>
-    <updated>2020-09-29T15:21:16.640Z</updated>
+    <updated>2020-09-29T15:26:22.701Z</updated>
     
-    <content type="html"><![CDATA[<p>categories: 技术</p><p>数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。</p><p>内连接：<br>1、where ……连接    查询雇员姓名和所在部门名称<br>select e.first_name 雇员姓名 , d.department_name 部门名称<br>from employees e , departments d<br>where e.department_id = d.department_id;</p><p>2、join …… on …… 查询出不在部门编号为30的部门的雇员姓名、部门编号和部门名称<br>select e.first_name 雇员姓名 , e.department_id 部门编号 , d.department_name<br>from employees e join departments d<br>on e.department_id != 30;</p><p>3、natural……join…… 获取每个雇员的姓名，属于某个部门的，同时获取其所在部门名称<br>select first_name 姓名 , department_id 部门编号 , department_name 部门名称<br>from employees<br>natural join departments </p><p>4、join……using……获取每个雇员的姓名，属于某个部门的，同时获取其所在部门名称<br>select first_name 姓名 , department_id 部门编号 , department_name 部门名称<br>from employees join departments<br>using (department_id)</p><p>5、非等值连接    查询月薪高于3000的雇员的姓名和工资等级<br>select e.first_name 雇员姓名 , sg.sallevel 工资等级<br>from employees e join salary_grade sg<br>on  e.salary between sg.minsal and sg.maxsal<br>where e.salary &gt; 3000;</p><p>外连接：可以省略outer<br>1、左外连接     语法：<br>select …… from table1 left join table2 on ……<br>left左边为主表，主表中不符合on条件的记录依旧会被查出</p><p>2、右外连接     语法：<br>select …… from table1 right join table2 on ……<br>right右边为主表，主表中不符合on条件的记录依旧会被查出</p><p>3、全外连接     语法：<br>select …… from table1 full join table2 on ……<br>两张表中不符合on条件的记录依旧会被查出</p><p>4、笛卡尔积<br>select t1.* , t2.* from table1 t1 ,table2 t2;<br>一张表中每条记录都会与另一张表中每一条记录连接</p>]]></content>
+    <content type="html"><![CDATA[<p>数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。</p><p>内连接：<br>1、where ……连接    查询雇员姓名和所在部门名称<br>select e.first_name 雇员姓名 , d.department_name 部门名称<br>from employees e , departments d<br>where e.department_id = d.department_id;</p><p>2、join …… on …… 查询出不在部门编号为30的部门的雇员姓名、部门编号和部门名称<br>select e.first_name 雇员姓名 , e.department_id 部门编号 , d.department_name<br>from employees e join departments d<br>on e.department_id != 30;</p><p>3、natural……join…… 获取每个雇员的姓名，属于某个部门的，同时获取其所在部门名称<br>select first_name 姓名 , department_id 部门编号 , department_name 部门名称<br>from employees<br>natural join departments </p><p>4、join……using……获取每个雇员的姓名，属于某个部门的，同时获取其所在部门名称<br>select first_name 姓名 , department_id 部门编号 , department_name 部门名称<br>from employees join departments<br>using (department_id)</p><p>5、非等值连接    查询月薪高于3000的雇员的姓名和工资等级<br>select e.first_name 雇员姓名 , sg.sallevel 工资等级<br>from employees e join salary_grade sg<br>on  e.salary between sg.minsal and sg.maxsal<br>where e.salary &gt; 3000;</p><p>外连接：可以省略outer<br>1、左外连接     语法：<br>select …… from table1 left join table2 on ……<br>left左边为主表，主表中不符合on条件的记录依旧会被查出</p><p>2、右外连接     语法：<br>select …… from table1 right join table2 on ……<br>right右边为主表，主表中不符合on条件的记录依旧会被查出</p><p>3、全外连接     语法：<br>select …… from table1 full join table2 on ……<br>两张表中不符合on条件的记录依旧会被查出</p><p>4、笛卡尔积<br>select t1.* , t2.* from table1 t1 ,table2 t2;<br>一张表中每条记录都会与另一张表中每一条记录连接</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;categories: 技术&lt;/p&gt;
-&lt;p&gt;数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。&lt;/p&gt;
-&lt;p&gt;内连接：&lt;br&gt;1、where ……连</summary>
+    <summary type="html">&lt;p&gt;数据库中的数据经常被分为多张表，多张表间通过外键相连接，此时想一次查询多张表中的数据时，需用到多表联查，多表联查又分为内连接和外连接。以下sql代码均为Oracle环境下运行。&lt;/p&gt;
+&lt;p&gt;内连接：&lt;br&gt;1、where ……连接    查询雇员姓名和所在部门名称&lt;br&gt;</summary>
       
     
     
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="数据库" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
