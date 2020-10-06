@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-29T16:13:18.271Z</updated>
+  <updated>2020-10-06T02:06:19.466Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sql语句执行顺序</title>
+    <link href="http://example.com/2020/10/06/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"/>
+    <id>http://example.com/2020/10/06/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</id>
+    <published>2020-10-06T02:03:28.000Z</published>
+    <updated>2020-10-06T02:06:19.466Z</updated>
+    
+    <content type="html"><![CDATA[<p>SQL的执行顺序<br>SELECT<br>FROM<br>WHERE<br>GROUP BY<br>HAVING<br>ORDER BY<br>LIMIT</p><p>FROM &gt; WHERE &gt; GROUP BY &gt; HAVING &gt; SELECT &gt; ORDER BY &gt; LIMIT</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;SQL的执行顺序&lt;br&gt;SELECT&lt;br&gt;FROM&lt;br&gt;WHERE&lt;br&gt;GROUP BY&lt;br&gt;HAVING&lt;br&gt;ORDER BY&lt;br&gt;LIMIT&lt;/p&gt;
+&lt;p&gt;FROM &amp;gt; WHERE &amp;gt; GROUP BY &amp;gt; HAVING &amp;gt; SELE</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="数据库" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>sql中用别名排序</title>
