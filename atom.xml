@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-10-06T02:06:19.466Z</updated>
+  <updated>2020-10-06T03:39:54.491Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>表</title>
+    <link href="http://example.com/2020/10/06/%E8%A1%A8/"/>
+    <id>http://example.com/2020/10/06/%E8%A1%A8/</id>
+    <published>2020-10-06T03:24:09.000Z</published>
+    <updated>2020-10-06T03:39:54.491Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>表</strong><br>    命名规则：<br>        1、必须以字母开头<br>        2、必须是1~30个字符长度<br>        3、只能包含字母、数字、下划线、美元符、和井号<br>        4、不能使用Oracle关键字<br>        5、同一用户所拥有的对象之间不能重名</p><p>​    创建表<br>​        直接创建：<br>​            <code>CREATE TABLE table_name (col1 type1 [default1] [constraint1])</code><br>​        用子查询创建：<br>​            <code>CREATE TABLE table_name AS (select ……)</code><br>​            用子查询创建方式只会携带表结构和表数据，不会携带约束<br>​    修改表<br>​        添加列：<br>​            <code>ALTER TABLE table_name ADD (column1 type1 [default1] , column2 type2 [default2])</code><br>​        修改列：<br>​            <code>ALTER TABLE table_name MODIFY (column1 type1 [default1] , column2 type2 [default2])</code><br>​        删除列：<br>​            <code>ALTER TABLE table_name DROP(column)</code>    </p><p>​    删除表<br>​        DROP TABLE table_name<br>​    截断表<br>​        TRUNCATE TABLE table_name</p><p>使用TRUNCATE TABLE 语句可以删除表中所有的行，并释放所使用的存储空间，DELETE 语句也可以从表中删除所有的行，但不能释放存储空间。TRUNCATE TABLE是DDL，速度更快，并且直接提交，不会产生回滚信息。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;表&lt;/strong&gt;&lt;br&gt;    命名规则：&lt;br&gt;        1、必须以字母开头&lt;br&gt;        2、必须是1~30个字符长度&lt;br&gt;        3、只能包含字母、数字、下划线、美元符、和井号&lt;br&gt;        4、不能使用Oracle</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Oracle数据库" scheme="http://example.com/tags/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>sql语句执行顺序</title>
