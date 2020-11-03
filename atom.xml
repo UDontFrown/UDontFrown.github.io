@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-03T03:19:33.109Z</updated>
+  <updated>2020-11-03T03:32:53.533Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="http://example.com/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/"/>
     <id>http://example.com/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</id>
     <published>2020-11-03T00:46:48.000Z</published>
-    <updated>2020-11-03T03:19:33.109Z</updated>
+    <updated>2020-11-03T03:32:53.533Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>值传递和引用传递</strong><br>直接上代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         int i1 = 10;         int i2 = 5;         change(i1, i2);         System.out.println(i1);         System.out.println(i2);     &#125;     public static void change(int i1, int i2) &#123;         int temp = i1;         i1 = i2;         i2 = temp;     &#125; &#125;</code><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/1.png" alt="image-20201103085307292"><br>会发现i1 和 i2的值并没有交换，为什么呢，代码在逻辑上看并没有问题啊？</p><p>我们再来看一段代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         int[] a = &#123;1, 2&#125;;         change(a);         System.out.println(a[0]);         System.out.println(a[1]);     &#125;     public static void change(int[] a) &#123;         int temp = a[0];         a[0] = a[1];         a[1] = temp;     &#125; &#125;</code><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/6.png" alt="image-20201103085719345"><br>这下发现两个值交换了？为什么？<br>这就是Java中的值传递和引用传递问题，究其原因，我们来看看内存中的执行过程</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/2.png" alt="image-20201103090641528"><br><strong>值传递</strong></p><p>进入方法后，栈中会出现两个i1, i2的副本，也可以不叫i1, i2，方法中对值得修改其实是对副本得修改，至于栈底的原值并没有被修改，所以输出后两个值没有被交换。</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/3.png" alt="image-20201103092045866"><br><strong>引用传递</strong><br>实际上引用传递传递的是引用值并将内存地址中的值修改了<br>这段代码的流程：<br>1、堆内存中创建一块内存空间，存放1和2，将栈中a[0]和a[1]指向它<br>2、将a[0]和a[1]拷贝一份，继续指向堆内存<br>3、创建一个temp变量存放a[0]指向的内存地址的值也就是1<br>4、用a[1]指向的内存地址的值将a[0]指向内存地址的值覆盖，现在a[0]和a[1]都是2<br>5、将temp的值1赋给a[1]指向的内存地址，现在a[1] = 1。<br>一番操作下来内存中的值被修改了，但是原a[0]和a[1]还是指向原本的地址，所以a[0]指向的就是2，a[1]指向的就是1。</p><p><u><strong>区分值传递和引用传递的关键就是看数据类型，基本数据类型就是值传递，引用数据类型就是引用传递，但有个特例，也就是String类型。</strong></u><br>String类型是引用类型，按理来说应该遵守引用传递的，但我们来看代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         String a = &quot;aaa&quot;;         String b = &quot;bbb&quot;;         change(a, b);         System.out.println(a);         System.out.println(b);     &#125;     public static void change(String a , String b) &#123;         String temp = a;         a = b;         b = temp;     &#125; &#125;</code><br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/4.png" alt="image-20201103094334273"></p><p>然后发现它还是没有变化，为什么？我们再来分析一下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/5.png" alt="image-20201103095216767"><br>因为字符串是常量，所以方法里修改它们的值只是改变了副本的引用地址，并没有影响到原数据的指向，所以String类型的传参并不会改变原数据。</p><p><strong>总结：基本类型遵守值传递，引用类型遵守引用传递，唯一特例是String类型，引用类型却遵守值传递。</strong></p>]]></content>
+    <content type="html"><![CDATA[<p><strong>值传递和引用传递</strong><br>直接上代码：<br><code>public class Test &#123;&lt;br/&gt;     public static void main(String[] args) &#123;&lt;br/&gt;         int i1 = 10;&lt;br/&gt;         int i2 = 5;&lt;br/&gt;         change(i1, i2);&lt;br/&gt;         System.out.println(i1);&lt;br/&gt;         System.out.println(i2);&lt;br/&gt;     &#125;&lt;br/&gt;     public static void change(int i1, int i2) &#123;&lt;br/&gt;         int temp = i1;&lt;br/&gt;         i1 = i2;&lt;br/&gt;         i2 = temp;&lt;br/&gt;     &#125;&lt;br/&gt; &#125;</code><br><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/1.png" alt="image-20201103085307292"><br>会发现i1 和 i2的值并没有交换，为什么呢，代码在逻辑上看并没有问题啊？</p><p>我们再来看一段代码：<br><code>public class Test &#123;&lt;br/&gt;     public static void main(String[] args) &#123;&lt;br/&gt;         int[] a = &#123;1, 2&#125;;&lt;br/&gt;         change(a);&lt;br/&gt;         System.out.println(a[0]);&lt;br/&gt;         System.out.println(a[1]);&lt;br/&gt;     &#125;&lt;br/&gt;     public static void change(int[] a) &#123;&lt;br/&gt;         int temp = a[0];&lt;br/&gt;         a[0] = a[1];&lt;br/&gt;         a[1] = temp;&lt;br/&gt;     &#125;&lt;br/&gt; &#125;</code><br><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/6.png" alt="image-20201103085719345"><br>这下发现两个值交换了？为什么？<br>这就是Java中的值传递和引用传递问题，究其原因，我们来看看内存中的执行过程</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/2.png" alt="image-20201103090641528"><br><strong>值传递</strong></p><p>进入方法后，栈中会出现两个i1, i2的副本，也可以不叫i1, i2，方法中对值得修改其实是对副本得修改，至于栈底的原值并没有被修改，所以输出后两个值没有被交换。</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/3.png" alt="image-20201103092045866"><br><strong>引用传递</strong><br>实际上引用传递传递的是引用值并将内存地址中的值修改了<br>这段代码的流程：<br>1、堆内存中创建一块内存空间，存放1和2，将栈中a[0]和a[1]指向它<br>2、将a[0]和a[1]拷贝一份，继续指向堆内存<br>3、创建一个temp变量存放a[0]指向的内存地址的值也就是1<br>4、用a[1]指向的内存地址的值将a[0]指向内存地址的值覆盖，现在a[0]和a[1]都是2<br>5、将temp的值1赋给a[1]指向的内存地址，现在a[1] = 1。<br>一番操作下来内存中的值被修改了，但是原a[0]和a[1]还是指向原本的地址，所以a[0]指向的就是2，a[1]指向的就是1。</p><p><u><strong>区分值传递和引用传递的关键就是看数据类型，基本数据类型就是值传递，引用数据类型就是引用传递，但有个特例，也就是String类型。</strong></u><br>String类型是引用类型，按理来说应该遵守引用传递的，但我们来看代码：<br><code>public class Test &#123;&lt;br/&gt;     public static void main(String[] args) &#123;&lt;br/&gt;         String a = &quot;aaa&quot;;&lt;br/&gt;         String b = &quot;bbb&quot;;&lt;br/&gt;         change(a, b);&lt;br/&gt;         System.out.println(a);&lt;br/&gt;         System.out.println(b);&lt;br/&gt;     &#125;&lt;br/&gt;     public static void change(String a , String b) &#123;&lt;br/&gt;         String temp = a;&lt;br/&gt;         a = b;&lt;br/&gt;         b = temp;&lt;br/&gt;     &#125;&lt;br/&gt; &#125;</code><br><br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/4.png" alt="image-20201103094334273"></p><p>然后发现它还是没有变化，为什么？我们再来分析一下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/5.png" alt="image-20201103095216767"><br>因为字符串是常量，所以方法里修改它们的值只是改变了副本的引用地址，并没有影响到原数据的指向，所以String类型的传参并不会改变原数据。</p><p><strong>总结：基本类型遵守值传递，引用类型遵守引用传递，唯一特例是String类型，引用类型却遵守值传递。</strong></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;&lt;strong&gt;值传递和引用传递&lt;/strong&gt;&lt;br&gt;直接上代码：&lt;br&gt;&lt;code&gt;public class Test &amp;#123;     public static void main(String[] args) &amp;#123;         int i1 = </summary>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;值传递和引用传递&lt;/strong&gt;&lt;br&gt;直接上代码：&lt;br&gt;&lt;code&gt;public class Test &amp;#123;&amp;lt;br/&amp;gt;     public static void main(String[] args) &amp;#123;&amp;lt;br/</summary>
       
     
     
@@ -70,7 +70,7 @@
     <link href="http://example.com/2020/10/31/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/"/>
     <id>http://example.com/2020/10/31/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/</id>
     <published>2020-10-31T12:05:53.000Z</published>
-    <updated>2020-11-01T00:36:56.232Z</updated>
+    <updated>2020-11-03T03:20:56.143Z</updated>
     
     <content type="html"><![CDATA[<p><strong>标识符</strong><br>标识符：Java中包名，类名，方法名，变量名，常量名都是标识符<br>关键字和保留字<br>    关键字：Java中具有特殊含义的单词<br>    保留字：goto</p><p><strong>标识符命名规则</strong><br>    1、由字母、数字、下划线、美元符号组成<br>    2、不能以数字开头<br>    3、不能使用关键字<br>    4、区分大小写<br><strong>标识符命名规范</strong><br>    1、使用驼峰命名法<br>        包名全部小写，类名首字母大写，变量名首字母小写，常量名大写<br>    2、见名知意</p><p>变量和常量<br><strong>变量：</strong><br>    1、成员变量<br>    2、局部变量<br>    区别：<br>        位置：    成员变量：类里，方法外；局部变量：方法里<br>        作用域：成员变量：整个类；            局部变量：从定义到方法结束<br>        初始化：成员变量：有默认值            局部变量：无默认值，需手动赋值<br><strong>常量：</strong><br>    使用final关键字修饰<br>    常量名大写，且单词之间用下划线分隔<br>    必须进行初始化赋值且不能被修改</p>]]></content>
     
@@ -83,7 +83,7 @@
     
     
     
-    <category term="Java" scheme="http://example.com/categories/Java/"/>
+    <category term="Java基础" scheme="http://example.com/categories/Java%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="标识符和变量常量" scheme="http://example.com/tags/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/"/>
