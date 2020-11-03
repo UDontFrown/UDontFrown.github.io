@@ -55,7 +55,7 @@
     
     <title>
         
-            表 | Hexo
+            SQL优化 | Hexo
         
     </title>
     
@@ -217,15 +217,15 @@
     
     
       <div class="post-header"> 
-  <a class="post-header-title" href="/2020/10/06/%E8%A1%A8/">表</a>
+  <a class="post-header-title" href="/2020/10/15/SQL%E4%BC%98%E5%8C%96/">SQL优化</a>
   <div class="post-header-meta">
     <span>
       <span class="iconfont icon-calendar"></span>
-      发布于:&nbsp;2020-10-06
+      发布于:&nbsp;2020-10-15
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2020-10-06
+      更新于:&nbsp;2020-10-16
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -251,25 +251,25 @@
       <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
       <ul class="mdui-menu" id="share_menu">
         <li class="mdui-menu-item">
-          <a href="http://service.weibo.com/share/share.php?appkey=&title=表&url=http://example.com/2020/10/06/%E8%A1%A8/&pic=http://example.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=SQL优化&url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/&pic=http://example.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="https://twitter.com/intent/tweet?text=表&url=http://example.com/2020/10/06/%E8%A1%A8/&via=Aqiu" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+          <a href="https://twitter.com/intent/tweet?text=SQL优化&url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/&via=Aqiu" target="_blank" class="mdui-ripple">分享到 Twitter</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2020/10/06/%E8%A1%A8/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="https://plus.google.com/share?url=http://example.com/2020/10/06/%E8%A1%A8/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+          <a href="https://plus.google.com/share?url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/" target="_blank" class="mdui-ripple">分享到 Google+</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2020/10/06/%E8%A1%A8/&title=表" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/&title=SQL优化" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Hexo&title=表&summary=&pics=http://example.com/null&url=http://example.com/2020/10/06/%E8%A1%A8/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Hexo&title=SQL优化&summary=&pics=http://example.com/null&url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/" target="_blank" class="mdui-ripple">分享到 QQ</a>
         </li>
         <li class="mdui-menu-item">
-          <a href="https://telegram.me/share/url?url=http://example.com/2020/10/06/%E8%A1%A8/&text=表" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+          <a href="https://telegram.me/share/url?url=http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/&text=SQL优化" target="_blank" class="mdui-ripple">分享到 Telegram</a>
         </li>
       </ul>
     
@@ -282,17 +282,22 @@
   <div class="post-tags">
     
       <i class="iconfont icon-tag">
-        <a rel="tag" href = /tags/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93/ >Oracle数据库</a>
+        <a rel="tag" href = /tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ >数据库</a>
       </i>
     
   </div>
 
   
   <div class="mdui-card-content mdui-typo mdui-p-x-4">
-    <p><strong>表</strong><br>    命名规则：<br>        1、必须以字母开头<br>        2、必须是1~30个字符长度<br>        3、只能包含字母、数字、下划线、美元符、和井号<br>        4、不能使用Oracle关键字<br>        5、同一用户所拥有的对象之间不能重名</p>
-<p>​    创建表<br>​        直接创建：<br>​            <code>CREATE TABLE table_name (col1 type1 [default1] [constraint1])</code><br>​        用子查询创建：<br>​            <code>CREATE TABLE table_name AS (select ……)</code><br>​            用子查询创建方式只会携带表结构和表数据，不会携带约束<br>​    修改表<br>​        添加列：<br>​            <code>ALTER TABLE table_name ADD (column1 type1 [default1] , column2 type2 [default2])</code><br>​        修改列：<br>​            <code>ALTER TABLE table_name MODIFY (column1 type1 [default1] , column2 type2 [default2])</code><br>​        删除列：<br>​            <code>ALTER TABLE table_name DROP(column)</code>    </p>
-<p>​    删除表<br>​        DROP TABLE table_name<br>​    截断表<br>​        TRUNCATE TABLE table_name</p>
-<p>使用TRUNCATE TABLE 语句可以删除表中所有的行，并释放所使用的存储空间，DELETE 语句也可以从表中删除所有的行，但不能释放存储空间。TRUNCATE TABLE是DDL，速度更快，并且直接提交，不会产生回滚信息。</p>
+    <p>——-SQL优化——–</p>
+<p><strong>一、Oracle做的越多，性能损耗就越大，应该极力避免这种损耗，常见方法有：</strong><br>1、避免复杂的多表关联</p>
+<p>2、避免使用“<em>”<br>    因为Oracle在解析时，会将“</em>”依次转换为所有的列名，这个工作是通过查询数据字典完成的，所以会耗费更多的时间，因此建议查询时只提取要使用的列，并使用别名，能够加快解析速度。</p>
+<p>3、避免使用耗费资源的操作<br>    带有DISTINCT、UNION、MINUS、INTERSECT、ORDER BY的SQL语句，会启动SQL引擎去执行耗费资源的排序功能，其中DISTINCT需要一次排序，其他的至少需要两次排序。</p>
+<p>4、用EXISTS替换DISTINCT<br>    EXISTS会使查询更为迅速，因为RDBMS核心模块将在子查询的条件满足后，立刻返回结果。<br>    低效：<br>    <code>SELECT DISTINCT DEPT_NO,DEPT_NAME </code><br>    <code>FROM DEPT_NO,EMP E</code><br>    <code>WHERED.DEPT_NO = E.DEPT_NO</code><br>    高效：<br>    <code>SELECT DEPT_NO,DEPT_NAME</code><br>    <code>FROM DEPT D</code><br>    <code>WHERE EXISTS(SELECT DEPT_NO</code><br>                            <code>FROM EMP E</code><br>                            <code>WHERE E.DEPT_NO = D.DEPT_NO)</code><br>5、用UNION ALL 代替 UNION<br>    当SQL语句使用UNION拼接两个查询结果集合时，这两个集合会先以UNION-ALL方式被合并，然后在输出最终结果前进行排序。如果用UNION ALL替代UNION，这样排序就不是必要的了，效率就会因为提到提高。</p>
+<p><strong>二、给优化器更明确的指令</strong><br>1、自动选择索引<br>    如果表中有两个或两个以上索引，并且其中有一个唯一性索引，其它是非唯一性的，则Oracle会使用唯一性索引而完全忽略非唯一性索引。<br>2、避免在索引列上使用函数或计算列<br>    低效：<br>    ``SELECT <em><code>      </code>FROM DEPT<code>      </code>WHERE SAL</em>12 &gt; 25000<code>    高效：    </code>SELECT * <code>      </code>FROM DEPT <code>     </code>WHERE SAL &gt; 25000/12<code>3、避免使用前置通配符     在WHERE子句中，如果索引列对应的值的第一个字符以通配符开始，索引将被忽略。    </code>SELECT USER_NO , USER_NAME , ADDRESS <code>     </code>FROM USER_FILES <code>     </code>WHERE USER_NO LIKE ‘%1001’`<br>    在这种情况下，Oracle将进行全表扫描<br>4、避免使用IS NULL<br>    如果在WHERE子句中使用IS NULL或IS NOT NULL，那么优化器也会忽略索引<br>5、避免出现索引列自动转换<br>    当比较不同数据类型的数据时，Oracle会自动进行简单的类型转换<br>    为避免Oracle对SQL进行隐式转换，最好将类型转换显式表现，当字符和数值进行比较时，Oracle会优先将字符类型转换为数值类型。</p>
+<p><strong>三、减少访问次数</strong><br>    每执行一条SQL，Oracle都在内部执行了许多工作，如解析SQL语句，估算索引的利用率、绑定变量、读数据块等。所以，减少访问数据库的次数，都能减少Oracle的工作量。</p>
+<p><strong>四、细节</strong><br>    Oracle采用自下而上的顺序解析WHERE子句，当在WHERE子句中有多个表连接时，WHERE子句中排在最后的表应该是返回行数可能最少的表。<br>    如果在ORDER BY语句中存在非索引项或列的表达式计算，都将降低查询速度。<br>    用WHERE代替HAVING、用&gt;=代替&gt;，都可能影响SQL的性能。</p>
+<p><strong>五、其它</strong><br>    <img src="/2020/10/15/SQL%E4%BC%98%E5%8C%96/1.png" alt="image-20201016143206147"></p>
 
   </div>
   <!--文末结束语-->
@@ -305,14 +310,14 @@
   
   <nav>
     
-      <a rel="prev" class="post-nav-item mdui-float-left" href="/2020/10/06/%E8%A7%86%E5%9B%BE%E3%80%81%E5%BA%8F%E5%88%97%E3%80%81%E7%B4%A2%E5%BC%95/">
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/2020/10/31/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/">
         <i class="iconfont icon-angle-left"></i>
-        <span>视图、序列、索引</span>
+        <span>标识符和变量常量</span>
       </a>
     
     
-      <a rel="next" class="post-nav-item mdui-float-right" href="/2020/10/06/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
-        <span>sql语句执行顺序</span>
+      <a rel="next" class="post-nav-item mdui-float-right" href="/2020/10/06/%E8%A7%86%E5%9B%BE%E3%80%81%E5%BA%8F%E5%88%97%E3%80%81%E7%B4%A2%E5%BC%95/">
+        <span>视图、序列、索引</span>
         <i class="iconfont icon-angle-right"></i>
       </a>
     
@@ -326,7 +331,7 @@
     <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
-        <a href="/2020/10/06/%E8%A1%A8/" id="toc-header" class="mdui-ripple">文章目录</a>
+        <a href="/2020/10/15/SQL%E4%BC%98%E5%8C%96/" id="toc-header" class="mdui-ripple">文章目录</a>
         
       </li>
     </ul>

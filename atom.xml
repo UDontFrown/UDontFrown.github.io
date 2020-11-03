@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-10-06T03:39:54.491Z</updated>
+  <updated>2020-11-03T01:56:39.675Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,130 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>值传递和引用传递</title>
+    <link href="http://example.com/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/"/>
+    <id>http://example.com/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</id>
+    <published>2020-11-03T00:46:48.000Z</published>
+    <updated>2020-11-03T01:56:39.675Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>值传递和引用传递</strong><br>直接上代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         int i1 = 10;         int i2 = 5;         change(i1, i2);         System.out.println(i1);         System.out.println(i2);     &#125;     public static void change(int i1, int i2) &#123;         int temp = i1;         i1 = i2;         i2 = temp;     &#125;</code><br><code>&#125;</code><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103085307292.png" alt="image-20201103085307292"><br>会发现i1 和 i2的值并没有交换，为什么呢，代码在逻辑上看并没有问题啊？</p><p>我们再来看一段代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         int[] a = &#123;1, 2&#125;;         change(a);         System.out.println(a[0]);         System.out.println(a[1]);     &#125;     public static void change(int[] a) &#123;         int temp = a[0];         a[0] = a[1];         a[1] = temp;     &#125;</code><br><code>&#125;</code><br>结果如下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103085719345.png" alt="image-20201103085719345"><br>这下发现两个值交换了？为什么？<br>这就是Java中的值传递和引用传递问题，究其原因，我们来看看内存中的执行过程</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103090641528.png" alt="image-20201103090641528"><br><strong>值传递</strong></p><p>进入方法后，栈中会出现两个i1, i2的副本，也可以不叫i1, i2，方法中对值得修改其实是对副本得修改，至于栈底的原值并没有被修改，所以输出后两个值没有被交换。</p><p><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103092045866.png" alt="image-20201103092045866"><br><strong>引用传递</strong><br>实际上引用传递传递的是引用值并将内存地址中的值修改了<br>这段代码的流程：<br>1、堆内存中创建一块内存空间，存放1和2，将栈中a[0]和a[1]指向它<br>2、将a[0]和a[1]拷贝一份，继续指向堆内存<br>3、创建一个temp变量存放a[0]指向的内存地址的值也就是1<br>4、用a[1]指向的内存地址的值将a[0]指向内存地址的值覆盖，现在a[0]和a[1]都是2<br>5、将temp的值1赋给a[1]指向的内存地址，现在a[1] = 1。<br>一番操作下来内存中的值被修改了，但是原a[0]和a[1]还是指向原本的地址，所以a[0]指向的就是2，a[1]指向的就是1。</p><p><u><strong>区分值传递和引用传递的关键就是看数据类型，基本数据类型就是值传递，引用数据类型就是引用传递，但有个特例，也就是String类型。</strong></u><br>String类型是引用类型，按理来说应该遵守引用传递的，但我们来看代码：<br><code>public class Test &#123;     public static void main(String[] args) &#123;         String a = &quot;aaa&quot;;         String b = &quot;bbb&quot;;         change(a, b);         System.out.println(a);         System.out.println(b);     &#125;     public static void change(String a , String b) &#123;         String temp = a;         a = b;         b = temp;     &#125;</code><br><code>&#125;</code><br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103094334273.png" alt="image-20201103094334273"><br>然后发现它还是没有变化，为什么？我们再来分析一下：<br><img src="/2020/11/03/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/Users\Aqiu\AppData\Roaming\Typora\typora-user-images\image-20201103095216767.png" alt="image-20201103095216767"><br>因为字符串是常量，所以方法里修改它们的值只是改变了副本的引用地址，并没有影响到原数据的指向，所以String类型的传参并不会改变原数据。</p><p><strong>总结：基本类型遵守值传递，引用类型遵守引用传递，唯一特例是String类型，引用类型却遵守值传递。</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;值传递和引用传递&lt;/strong&gt;&lt;br&gt;直接上代码：&lt;br&gt;&lt;code&gt;public class Test &amp;#123;     public static void main(String[] args) &amp;#123;         int i1 = </summary>
+      
+    
+    
+    
+    <category term="Java基础" scheme="http://example.com/categories/Java%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="值传递和引用传递" scheme="http://example.com/tags/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数组</title>
+    <link href="http://example.com/2020/11/01/%E6%95%B0%E7%BB%84/"/>
+    <id>http://example.com/2020/11/01/%E6%95%B0%E7%BB%84/</id>
+    <published>2020-11-01T10:57:44.000Z</published>
+    <updated>2020-11-01T15:31:06.478Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>数组</strong><br>一维数组：有序的、固定长度、具有相同数据类型的数据的集合，数组是引用数据类型。</p><p><strong>for循环</strong><br>for (int i = 0; i &lt; a.length; i++) </p><p><strong>foreach遍历</strong><br>for (int value : a)</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;数组&lt;/strong&gt;&lt;br&gt;一维数组：有序的、固定长度、具有相同数据类型的数据的集合，数组是引用数据类型。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;for循环&lt;/strong&gt;&lt;br&gt;for (int i = 0; i &amp;lt; a.length; i++) &lt;/p</summary>
+      
+    
+    
+    
+    <category term="Java基础" scheme="http://example.com/categories/Java%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="数组与遍历" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%81%8D%E5%8E%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>标识符和变量常量</title>
+    <link href="http://example.com/2020/10/31/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/"/>
+    <id>http://example.com/2020/10/31/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/</id>
+    <published>2020-10-31T12:05:53.000Z</published>
+    <updated>2020-11-01T00:36:56.232Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>标识符</strong><br>标识符：Java中包名，类名，方法名，变量名，常量名都是标识符<br>关键字和保留字<br>    关键字：Java中具有特殊含义的单词<br>    保留字：goto</p><p><strong>标识符命名规则</strong><br>    1、由字母、数字、下划线、美元符号组成<br>    2、不能以数字开头<br>    3、不能使用关键字<br>    4、区分大小写<br><strong>标识符命名规范</strong><br>    1、使用驼峰命名法<br>        包名全部小写，类名首字母大写，变量名首字母小写，常量名大写<br>    2、见名知意</p><p>变量和常量<br><strong>变量：</strong><br>    1、成员变量<br>    2、局部变量<br>    区别：<br>        位置：    成员变量：类里，方法外；局部变量：方法里<br>        作用域：成员变量：整个类；            局部变量：从定义到方法结束<br>        初始化：成员变量：有默认值            局部变量：无默认值，需手动赋值<br><strong>常量：</strong><br>    使用final关键字修饰<br>    常量名大写，且单词之间用下划线分隔<br>    必须进行初始化赋值且不能被修改</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;标识符&lt;/strong&gt;&lt;br&gt;标识符：Java中包名，类名，方法名，变量名，常量名都是标识符&lt;br&gt;关键字和保留字&lt;br&gt;    关键字：Java中具有特殊含义的单词&lt;br&gt;    保留字：goto&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;标识符命名规则&lt;/stro</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="http://example.com/categories/Java/"/>
+    
+    
+    <category term="标识符和变量常量" scheme="http://example.com/tags/%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL优化</title>
+    <link href="http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/"/>
+    <id>http://example.com/2020/10/15/SQL%E4%BC%98%E5%8C%96/</id>
+    <published>2020-10-15T03:08:54.000Z</published>
+    <updated>2020-10-16T06:34:20.387Z</updated>
+    
+    <content type="html"><![CDATA[<p>——-SQL优化——–</p><p><strong>一、Oracle做的越多，性能损耗就越大，应该极力避免这种损耗，常见方法有：</strong><br>1、避免复杂的多表关联</p><p>2、避免使用“<em>”<br>    因为Oracle在解析时，会将“</em>”依次转换为所有的列名，这个工作是通过查询数据字典完成的，所以会耗费更多的时间，因此建议查询时只提取要使用的列，并使用别名，能够加快解析速度。</p><p>3、避免使用耗费资源的操作<br>    带有DISTINCT、UNION、MINUS、INTERSECT、ORDER BY的SQL语句，会启动SQL引擎去执行耗费资源的排序功能，其中DISTINCT需要一次排序，其他的至少需要两次排序。</p><p>4、用EXISTS替换DISTINCT<br>    EXISTS会使查询更为迅速，因为RDBMS核心模块将在子查询的条件满足后，立刻返回结果。<br>    低效：<br>    <code>SELECT DISTINCT DEPT_NO,DEPT_NAME </code><br>    <code>FROM DEPT_NO,EMP E</code><br>    <code>WHERED.DEPT_NO = E.DEPT_NO</code><br>    高效：<br>    <code>SELECT DEPT_NO,DEPT_NAME</code><br>    <code>FROM DEPT D</code><br>    <code>WHERE EXISTS(SELECT DEPT_NO</code><br>                            <code>FROM EMP E</code><br>                            <code>WHERE E.DEPT_NO = D.DEPT_NO)</code><br>5、用UNION ALL 代替 UNION<br>    当SQL语句使用UNION拼接两个查询结果集合时，这两个集合会先以UNION-ALL方式被合并，然后在输出最终结果前进行排序。如果用UNION ALL替代UNION，这样排序就不是必要的了，效率就会因为提到提高。</p><p><strong>二、给优化器更明确的指令</strong><br>1、自动选择索引<br>    如果表中有两个或两个以上索引，并且其中有一个唯一性索引，其它是非唯一性的，则Oracle会使用唯一性索引而完全忽略非唯一性索引。<br>2、避免在索引列上使用函数或计算列<br>    低效：<br>    ``SELECT <em><code>      </code>FROM DEPT<code>      </code>WHERE SAL</em>12 &gt; 25000<code>    高效：    </code>SELECT * <code>      </code>FROM DEPT <code>     </code>WHERE SAL &gt; 25000/12<code>3、避免使用前置通配符     在WHERE子句中，如果索引列对应的值的第一个字符以通配符开始，索引将被忽略。    </code>SELECT USER_NO , USER_NAME , ADDRESS <code>     </code>FROM USER_FILES <code>     </code>WHERE USER_NO LIKE ‘%1001’`<br>    在这种情况下，Oracle将进行全表扫描<br>4、避免使用IS NULL<br>    如果在WHERE子句中使用IS NULL或IS NOT NULL，那么优化器也会忽略索引<br>5、避免出现索引列自动转换<br>    当比较不同数据类型的数据时，Oracle会自动进行简单的类型转换<br>    为避免Oracle对SQL进行隐式转换，最好将类型转换显式表现，当字符和数值进行比较时，Oracle会优先将字符类型转换为数值类型。</p><p><strong>三、减少访问次数</strong><br>    每执行一条SQL，Oracle都在内部执行了许多工作，如解析SQL语句，估算索引的利用率、绑定变量、读数据块等。所以，减少访问数据库的次数，都能减少Oracle的工作量。</p><p><strong>四、细节</strong><br>    Oracle采用自下而上的顺序解析WHERE子句，当在WHERE子句中有多个表连接时，WHERE子句中排在最后的表应该是返回行数可能最少的表。<br>    如果在ORDER BY语句中存在非索引项或列的表达式计算，都将降低查询速度。<br>    用WHERE代替HAVING、用&gt;=代替&gt;，都可能影响SQL的性能。</p><p><strong>五、其它</strong><br>    <img src="/2020/10/15/SQL%E4%BC%98%E5%8C%96/1.png" alt="image-20201016143206147"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;——-SQL优化——–&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一、Oracle做的越多，性能损耗就越大，应该极力避免这种损耗，常见方法有：&lt;/strong&gt;&lt;br&gt;1、避免复杂的多表关联&lt;/p&gt;
+&lt;p&gt;2、避免使用“&lt;em&gt;”&lt;br&gt;    因为Oracle在解析时，会将“&lt;/em</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="数据库" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>视图、序列、索引</title>
+    <link href="http://example.com/2020/10/06/%E8%A7%86%E5%9B%BE%E3%80%81%E5%BA%8F%E5%88%97%E3%80%81%E7%B4%A2%E5%BC%95/"/>
+    <id>http://example.com/2020/10/06/%E8%A7%86%E5%9B%BE%E3%80%81%E5%BA%8F%E5%88%97%E3%80%81%E7%B4%A2%E5%BC%95/</id>
+    <published>2020-10-06T12:22:28.000Z</published>
+    <updated>2020-10-07T02:16:13.186Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>视图</strong><br>    本质：视图是一张 逻辑表，本质是一条select语句<br>    好处：数据更安全，简化查询的表（视图）结构<br>    语法：<br>        CREATE [OR REPLACE] VIEW view_name [ (aliaslist) ]<br>        AS subquery<br>        [WITH CHECK OPTION]<br>        [WITH READ ONLY]<br>    分类：<br>        简单视图：查询只涉及一张表，不涉及函数，可以做DML操作<br>        复杂视图：查询涉及多张表或涉及函数，不可以做DML操作，只能做DQL操作</p><p><strong>序列</strong><br>    语法：<br>                CREATE SEQUENCE sequence<br>                [INCREMENT BY n]<br>                [START WITH n]<br>    使用序列：<br>                序列名.NEXTVAL<br>                序列名.CURRVAL</p><p><strong>索引</strong><br>    语法：create index index_name on table(column)<br>    作用：提高数据的检索效率<br>    何时创建索引：<br>        1、表的数据量比较大<br>        2、表频繁做查询，而较少做增删<br>        3、where条件中出现的字段，多表连接字段</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;视图&lt;/strong&gt;&lt;br&gt;    本质：视图是一张 逻辑表，本质是一条select语句&lt;br&gt;    好处：数据更安全，简化查询的表（视图）结构&lt;br&gt;    语法：&lt;br&gt;        CREATE [OR REPLACE] VIEW view_na</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="数据库" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>表</title>
